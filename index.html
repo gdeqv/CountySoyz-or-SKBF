@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>CountySoyz / SKBF Quiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body{
+        background:#0f1115;
+        color:#fff;
+        font-family:Arial, Helvetica, sans-serif;
+        margin:0;
+        padding:0;
+        display:flex;
+        justify-content:center;
+    }
+    .wrap{
+        max-width:600px;
+        width:100%;
+        padding:20px;
+        text-align:center;
+    }
+    .note{
+        background:#1f2530;
+        padding:10px;
+        border-radius:8px;
+        margin-bottom:10px;
+        font-size:14px;
+        opacity:0.9;
+    }
+    img{
+        width:100%;
+        max-height:400px;
+        object-fit:cover;
+        border-radius:10px;
+        border:2px solid #2f394d;
+    }
+    h2{
+        margin-top:10px;
+    }
+    .buttons{
+        display:flex;
+        gap:10px;
+        justify-content:center;
+        margin:15px 0;
+        flex-wrap:wrap;
+    }
+    button{
+        padding:10px 15px;
+        border-radius:8px;
+        border:none;
+        cursor:pointer;
+        background:#2f71ff;
+        color:#fff;
+        font-weight:bold;
+        transition:0.2s;
+    }
+    button:hover{
+        background:#5588ff;
+        transform:scale(1.05);
+    }
+    .result{
+        font-size:18px;
+        margin-top:10px;
+        padding:10px;
+        border-radius:8px;
+    }
+    .correct{ background:#1d6b2e; }
+    .wrong{ background:#6b1d1d; }
+    .next{
+        margin-top:10px;
+        background:#ffaa00;
+        color:#000;
+    }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<div class="note">
+⚠️ Это тестовый сайт. Некоторых людей тут пока нет.
+</div>
+
+<h2 id="name"></h2>
+<img id="photo" src="" alt="">
+<div class="buttons">
+    <button onclick="choose('CountySoyz')">CountySoyz</button>
+    <button onclick="choose('Нейтралы')">Нейтралы</button>
+    <button onclick="choose('SKBF')">SKBF</button>
+</div>
+
+<div id="result"></div>
+<button class="next" onclick="next()">Следующий</button>
+
+</div>
+
+<script>
+
+const data = [
+    {
+        name: "Новосиб (Novosib)",
+        team: "CountySoyz",
+        img: "https://i.postimg.cc/fb2VczS9/IMG-20251226-112034-072.jpg",
+        desc: "Клевета СКБФ"
+    },
+    {
+        name: "Mariupol Mapper",
+        team: "Нейтралы",
+        img: "https://i.postimg.cc/RZbmGNG7/2025-12-26-11-22-18.jpg",
+        desc: "Обычный участник СКБФ :|"
+    },
+    {
+        name: "FrikRip",
+        team: "SKBF",
+        img: "https://i.postimg.cc/wMx4SkTC/IMG-20251226-112353-066.jpg",
+        desc: "Глава СКБФ"
+    },
+    {
+        name: "Дивчик",
+        team: "CountySoyz",
+        img: "https://i.postimg.cc/SQtGS4Z6/2025-12-26-11-26-25.jpg",
+        desc: "Глава Кэнтри Союза"
+    },
+    {
+        name: "АССР",
+        team: "CountySoyz",
+        img: "https://i.postimg.cc/pTSnHW2t/IMG-20251226-112854-830.jpg",
+        desc: "Обычный участник Кэнтри Союза :|"
+    },
+    {
+        name: "леха бугатти",
+        team: "Нейтралы",
+        img: "https://i.postimg.cc/Qx3cxMQc/2025-12-26-23-41-57.jpg",
+        desc: "Создатель этого сайта :)"
+    }
+];
+
+let current = 0;
+
+function shuffle(){
+    data.sort(() => Math.random() - 0.5);
+}
+
+function load(){
+    const p = data[current];
+    document.getElementById("name").innerText = p.name;
+    document.getElementById("photo").src = p.img;
+    document.getElementById("result").innerHTML = "";
+}
+
+function choose(team){
+    const p = data[current];
+    const res = document.getElementById("result");
+    const correct = team === p.team;
+
+    res.className = "result " + (correct ? "correct" : "wrong");
+    res.innerHTML = (correct ? "Правильно!" : "Неправильно!") +
+        "<br>Правильный ответ: <b>" + p.team +
+        "</b><br>" + p.desc;
+}
+
+function next(){
+    current++;
+    if(current >= data.length){
+        shuffle();
+        current = 0;
+    }
+    load();
+}
+
+shuffle();
+load();
+
+</script>
+
+</body>
+  </html>
